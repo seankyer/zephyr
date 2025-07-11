@@ -1,0 +1,22 @@
+/*
+ * Copyright (c) 2025 Analog Devices, Inc.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Example devicetree definition of performance-states */
+
+/ {
+	performance-states {
+		p_state_0: p_state_0 {
+			compatible = "adi,max32-p-state";
+			load-threshold = <50>;
+			p-state-id = <0>;
+		};
+		p_state_1: p_state_1 {
+			compatible = "adi,max32-p-state";
+			load-threshold = <0>;
+			p-state-id = <1>;
+		};
+	};
+};
