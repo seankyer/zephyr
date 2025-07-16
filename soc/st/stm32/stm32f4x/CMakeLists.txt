@@ -13,3 +13,4 @@ zephyr_sources_ifdef(CONFIG_PM
   power.c
   )
 zephyr_sources_ifdef(CONFIG_POWEROFF poweroff.c)
+zephyr_library_sources_ifdef(CONFIG_CPU_FREQ cpu_freq.c)
