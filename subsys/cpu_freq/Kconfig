@@ -4,7 +4,11 @@
 
 menuconfig CPU_FREQ
 	bool "CPU Frequency Scaling Subsystem"
-	# select CPU_LOAD TODO: Select the CPU Load subsystem
+	select THREAD_RUNTIME_STATS
+	select SCHED_THREAD_USAGE
+	select SCHED_THREAD_USAGE_ALL
+	select SCHED_THREAD_USAGE_AUTO_ENABLE
+	depends on !SMP
 	help
 	  CPU Frequency scaling subsystem
 

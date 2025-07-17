@@ -7,8 +7,8 @@ zephyr_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 zephyr_library()
 zephyr_library_sources(cpu_freq.c)
 
-# TEMP REMOVE TEST CODE
-zephyr_library_sources(temp/cpu_load.c)
+# Metrics
+zephyr_library_sources(metrics/cpu_load.c)
 
 # Policy selection
 if(CONFIG_CPU_FREQ_POLICY_NONE)

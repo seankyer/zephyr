@@ -10,8 +10,7 @@
 #include <zephyr/cpu_freq/policy.h>
 #include <zephyr/cpu_freq/cpu_freq.h>
 
-/* TEMP: REMOVE THIS */
-#include "temp/cpu_load.h"
+#include "metrics/cpu_load.h"
 
 LOG_MODULE_REGISTER(cpu_freq, CONFIG_CPU_FREQ_LOG_LEVEL);
 
