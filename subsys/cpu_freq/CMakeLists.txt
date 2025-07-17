@@ -7,6 +7,9 @@ zephyr_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 zephyr_library()
 zephyr_library_sources(cpu_freq.c)
 
+# Metrics
+zephyr_sources_ifdef(CONFIG_CPU_FREQ_METRIC_CPU_LOAD metrics/cpu_load.c)
+
 # Policy selection
 if(CONFIG_CPU_FREQ_POLICY_NONE)
   message(FATAL_ERROR "No CPU frequency policy selected. Please choose a valid policy in Kconfig.")

@@ -23,15 +23,10 @@ static void cpu_freq_work_handler(struct k_work *work)
 {
 	uint32_t ret;
 
-	/* 1. Get CPU Load */
-	int load = 50;
-
-	LOG_DBG("Current CPU Load: %d%%", load);
-
-	/* 2. Get next P-state */
+	/* 1. Get next P-state */
 	struct p_state next_p_state;
 
-	ret = cpu_freq_policy_get_p_state_next(&next_p_state, load);
+	ret = cpu_freq_policy_get_p_state_next(&next_p_state);
 	if (ret) {
 		LOG_ERR("Failed to get next P-state: %d", ret);
 		goto reschedule;
@@ -39,7 +34,7 @@ static void cpu_freq_work_handler(struct k_work *work)
 	LOG_DBG("Next P-state: load_threshold=%d, config=%p", next_p_state.load_threshold,
 		next_p_state.config);
 
-	/* 3. Set P-state using P-state driver */
+	/* 2. Set P-state using P-state driver */
 	ret = cpu_freq_performance_state_set(next_p_state);
 	if (ret) {
 		LOG_ERR("Failed to set performance state: %d", ret);
