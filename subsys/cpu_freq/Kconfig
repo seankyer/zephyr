@@ -51,6 +51,12 @@ config CPU_FREQ_POLICY_ON_DEMAND
 	bool "On-demand Policy"
 	select CPU_LOAD_METRIC
 
+config CPU_FREQ_POLICY_THERMAL
+	bool "Thermal based policy"
+	depends on SENSOR
+	help
+	  Thermal based policy
+
 config CPU_FREQ_POLICY_PRESSURE
 	bool "Pressure based Policy"
 	select TRACING
@@ -99,5 +105,15 @@ config CPU_FREQ_PSTATE_SET_CUSTOM
 	  the necessary implementation of cpu_freq_pstate_set().
 
 endchoice # CPU_FREQ_PSTATE_SET
+
+if CPU_FREQ_POLICY_THERMAL
+
+config CPU_FREQ_POLICY_THERMAL_CRITICAL_TEMP
+	int "The temperature at which the CPU should be throttled"
+	default 70
+	help
+	  The temperature at which the CPU should be throttled using DVFS.
+
+endif
 
 endif # CPU_FREQ
