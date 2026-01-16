@@ -350,7 +350,7 @@ nxp_8080_touch_panel_i2c: &flexcomm2_lpi2c2 {
  * replace &os_timer with &systick
  */
 &os_timer {
-	status = "disabled";
+	status = "okay";
 };
 
 &systick {

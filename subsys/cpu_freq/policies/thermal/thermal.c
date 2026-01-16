@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2025 Analog Devices, Inc.
+ * Copyright (c) 2023 TOKITA Hiroshi
  * Copyright (c) 2025 Sean Kyer
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -102,10 +103,19 @@ int cpu_freq_policy_select_pstate(const struct pstate **pstate_out)
 	cpu_id = arch_curr_cpu()->id;
 #endif
 
-	thermal_load = get_thermal_load(sensors[0]);
-	if (thermal_load < 0) {
-		LOG_ERR("Unable to retrieve thermal load");
-		return thermal_load;
+	for (size_t i = 0; i < ARRAY_SIZE(sensors); i++) {
+		if (!device_is_ready(sensors[i])) {
+			LOG_ERR("sensor: device %s not ready.\n", sensors[i]->name);
+			return -1;
+		}
+	}
+
+	for (size_t i = 0; i < ARRAY_SIZE(sensors); i++) {
+		thermal_load = get_thermal_load(sensors[i]);
+		if (thermal_load < 0) {
+			LOG_ERR("Unable to retrieve thermal load");
+			thermal_load = 0;
+		}
 	}
 
 	LOG_DBG("CPU%d Thermal Load: %d%%", cpu_id, thermal_load);

@@ -17,7 +17,7 @@ config ROM_START_OFFSET
 	default 0x1000 if !BOOTLOADER_MCUBOOT && FLASH_MCUX_FLEXSPI_XIP
 
 config MCUX_LPTMR_TIMER
-	default n if (DT_HAS_NXP_OS_TIMER_ENABLED || DT_HAS_ARM_ARMV8M_SYSTICK_ENABLED)
+	default n if (MCUX_OS_TIMER || DT_HAS_ARM_ARMV8M_SYSTICK_ENABLED)
 
 config SYS_CLOCK_HW_CYCLES_PER_SEC
 	default 1000000 if MCUX_OS_TIMER
@@ -36,6 +36,19 @@ config FLASH_FILL_BUFFER_SIZE
 # so the PLL settings will not be performed in the driver.
 config I2S_HAS_PLL_SETTING
 	default n
+
+if CPU_FREQ
+
+configdefault CORTEX_M_SYSTICK
+	default n
+
+configdefault MCUX_LPTMR_TIMER
+	default n
+
+configdefault MCUX_OS_TIMER
+	default y
+
+endif # CPU_FREQ
 
 if PM
 
